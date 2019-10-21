@@ -1,3 +1,3 @@
-# <a href="http://www.baidu.con">baidu</a>
+# <a href="http://www.baidu.com">baidu</a>
  use git record note 
 aaa
