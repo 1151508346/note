@@ -1,0 +1,85 @@
+其他命令
+	
+	cat a.txt 查看a.txt内容
+	touch a.txt 创建a.txt
+	vim a.txt 创建并处于编辑状态
+	mkdir a 创建a文件夹
+	reset 清除控制台
+	
+
+git init 初始化
+
+git add a.txt 
+
+git commit -m "第一次提交"
+git commit -am   只要做过版本控制器的文件被修改了 在不在暂存区中都被提交到版本库中
+
+git diff 查看非暂存区中文件的变化
+
+git diff --cached 查看暂存区中文件的变化
+
+git diff HEAD 查看已缓存和未缓存的文件的变化（相当于 git diff 和git diff --cached 两个查看出来的并集）
+
+git diff stat 显示摘要（未缓存）
+
+git status 查看缓存区中内容
+git reset HEAD 回滚掉暂存区中的内容
+git status -s 查看状态
+git rm a.txt  删除a.txt
+git rm -f a.txt 强制删除
+
+git mv a.txt aaa.txt 重命名
+
+git branch 查看分支
+git branch 名字 创建分支
+git checkout 名字 切换分支
+
+git branch -d 名称  删除分支
+git merge 分支名  合并分支
+git log  查看日志
+git log --oneline 查看日志大纲
+
+git tag -a v1.0.0  创建标签
+git tag 查看历史标签
+
+ssh-keygen -t rsa -C 1151508346@qq.com 生成签名
+
+ssh -T git@github.com 验证签名
+	//验证成功信息
+	ssh -T git@github.com
+	Hi 1151508346! You've successfully authenticated, but GitHub does not provide shell access.
+
+git remote add origin git@github.com:1151508346/notes.git 关联远程仓库
+
+git remote 验证时候链接到远程仓库
+	// 结果 origin 说明链接上远程仓库了
+git remote -v 对远程仓库进行操作列表
+	origin  git@github.com:1151508346/notes.git (fetch)
+	origin  git@github.com:1151508346/notes.git (push)
+
+git pull origin master 从远程拉写来
+git push origin master 从本地推到远程
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
