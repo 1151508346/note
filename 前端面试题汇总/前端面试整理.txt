@@ -1,0 +1,285 @@
+CSS 优化、提高性能的方法?
+
+　　如何提高CSS性能，根据页面的加载性能和CSS代码性能，主要总结有下面几点：
+
+　　1、尽量将样式写在单独的css文件里面，在head元素中引用
+
+　　有时候为了图方便或者快速搞定功能，我们可能会直接将样式写在页面的style标签或者直接内联在元素上，这样虽然简单方便，但是非常不利于日后的维护。将代码写成单独的css文件有几点好处：
+
+　　(1)内容和样式分离，易于管理和维护
+
+　　(2)减少页面体积
+
+　　(3)css文件可以被缓存、重用，维护成本降低
+
+　　2、不使用@import
+
+　　这条手段已经是众所周知，这里简单提一下，@import影响css文件的加载速度
+
+　　3、避免使用复杂的选择器，层级越少越好
+
+　　有时候项目的模块越来越多，功能越来越复杂，我们写的CSS选择器会内套多层，越来越复杂。
+
+　　建议选择器的嵌套最好不要超过三层，比如：
+
+.header .logo .text{}
+　　可以优化成
+
+.haeder .logo-text{}
+　　简洁的选择器不仅可以减少css文件大小，提高页面的加载性能，浏览器解析时也会更加高效，也会提高开发人员的开发效率，降低了维护成本。
+
+ 
+
+　　4、精简页面的样式文件，去掉不用的样式
+
+　　很多时候，我们会把所有的样式文件合并成一个文件，但是这样有一个问题：很多其他页面的CSS同时引用到当前页面中，而当前页面并没有用到它们，这种情况会造成两个问题：
+
+　　(1)样式文件偏大，影响加载速度
+
+　　(2)浏览器会进行多余的样式匹配，影响渲染时间。
+
+　　正确的处理方法是根据当前页面需要的css去合并那些当前页面用到的CSS文件。
+
+ 
+
+　　PS：合并成一个文件有一个优点：样式文件会被浏览器缓存，进入到其他页面样式文件不用再去下载。这条规则应根据场景来区别对待，如果是大项目，应该合并成不同的样式文件，如果是简单的项目，建议合并成一个文件即可。如果无法确认项目规模，建议分开成不同的样式文件，日后要合并也比较方便。
+
+ 
+
+　　5、利用CSS继承减少代码量
+
+　　我们知道有一部分CSS代码是可以继承的，如果父元素已经设置了该样式，子元素就不需要去设置该样式，这个也是提高性能的行之有效的方法。
+
+　　常见的可以继承的属性比如：
+
+　　color，font-size，font-family等等
+
+　　不可继承的比如：
+
+　　position，display，float等
+
+ 
+
+　　6、慎重使用高性能属性：浮动、定位；
+
+浏览器是怎样解析CSS选择器的？
+    按照从上到下，从右到左的顺序解析。
+
+    .list a {color:blue;}
+    1
+    先解析到 a 标签，并将页面上所有 a 标签的字体颜色都按照 color:red 进行渲染（蓝色），再解析到 .list ，将页面上所有 .list 类目下的 a 标签的字体渲染成蓝色。是的，你没有看错，浏览器解析CSS从来就是这么苦逼。
+
+在网页中的应该使用奇数还是偶数的字体？为什么呢？
+    一、UI设计师的原因
+
+        多数设计师用的设计软件（如：ps）大多数都是偶数，所以前端工程师一般都是用偶数字体
+
+    二、浏览器的原因
+
+        其一是为了迁就ie6，万恶的ie6会把定义为13px的字渲染成14px，你可以写个页面试试还有一个原因是，偶数宽的汉字，比如12px宽的汉字，去掉1像素的间距，填充了像素的实际宽是11px，这样汉字的中竖线左右是平分的，以“中”这个字为例，在12像素时，竖线在中间，左右各5像素，显得均衡。
+
+        其二像谷歌一些比较流行的浏览器一般会有个默认的最小字体，而且对奇数字体渲染的不太好看
+
+    三、实际应用
+
+        偶数字号相对更容易和 web 设计的其他部分构成比例关系。比如：当我用了 14 px 的正文字号，我可能会在一些地方用 14 × 0.5 = 7 px 的 margin，在另一些地方用 14 × 1.5 = 21 px 的标题字号。
+        Windows 自带的点阵宋体（中易宋体）从 Vista 开始只提供 12、14、16 px 这三个大小的点阵，而 13、15、17 px 时用的是小一号的点阵（即每个字占的空间大了 1 px，但点阵没变），于是略显稀疏。
+
+31、 什么是响应式设计？响应式设计的基本原理是什么？如何兼容低版本的IE？
+
+    响应式网站设计(Responsive Web design)是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。
+
+    基本原理是通过媒体查询检测不同的设施屏幕尺寸做解决。
+
+    页面头部必需有meta公告的viewport。
+
+    initial-scale=1. maximum-scale=1,user-scalable=no”>
+
+
+45、 阐述一下CSS Sprites
+
+            将一个页面涉及到的所有图片都包含到一张大图中去，而后利用CSS的 background-image，background- repeat，background-position 的组合进行背景定位。利用CSS Sprites能很好地减少网页的http请求，从而大大的提高页面的性能；CSS Sprites能减少图片的字节。
+
+如何编写高性能的JavaScript？
+
+    遵循严格模式：”use strict”;
+
+    将js脚本放在页面底部，加快渲染页面;
+
+    将js脚本成组打包，减少请求;
+
+    使用非阻塞方式下载js脚本;
+
+    尽量使用局部变量来保存全局变量;
+
+    尽量减少使用闭包;
+
+    使用window对象属性方法时省略window;
+
+    尽量减少对象成员嵌套;
+
+    缓存DOM节点的访问;
+
+    通过避免使用eval和function()构造器;
+
+    给setTimeout()和setInterval()传递函数而不是字符作为参数;
+
+    尽量使用直接量创建对象和数组;
+
+    最小化重绘(repaint)和回流(reflow);
+
+JS哪些操作会造成内存泄露
+    2017年09月07日 22:45:04 michael8512 阅读数 9888更多
+    分类专栏： JavaScript  前端面试
+    内存泄漏：指一块被分配的内存既不能使用，又不能回收，直到浏览器进程结束。
+
+
+
+    1、JS的回收机制
+
+    JavaScript垃圾回收的机制很简单：找出不再使用的变量，然后释放掉其占用的内存，但是这个过程不是实时的，因为其开销比较大，所以垃圾回收系统（GC）会按照固定的时间间隔,周期性的执行。
+
+    到底哪个变量是没有用的？所以垃圾收集器必须跟踪到底哪个变量没用，对于不再有用的变量打上标记，以备将来收回其内存。用于标记的无用变量的策略可能因实现而有所区别，通常情况下有两种实现方式：标记清除和引用计数。引用计数不太常用，标记清除较为常用。
+
+
+
+    2、标记清除
+
+    js中最常用的垃圾回收方式就是标记清除。当变量进入环境时，例如，在函数中声明一个变量，就将这个变量标记为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为“离开环境”。
+
+    function test(){
+      var a=10;//被标记，进入环境
+      var b=20;//被标记，进入环境
+    }
+    test();//执行完毕之后a、b又被标记离开环境，被回收
+
+    3、引用此时
+    引用计数的含义是跟踪记录每个值被引用的次数。当声明了一个变量并将一个引用类型值（function object array）赋给该变量时，则这个值的引用次数就是1。如果同一个值又被赋给另一个变量，则该值的引用次数加1。相反，如果包含对这个值引用的变量又取得了另外一个值，则这个值的引用次数减1。当这个值的引用次数变成0时，则说明没有办法再访问这个值了，因而就可以将其占用的内存空间回收回来。这样，当垃圾回收器下次再运行时，它就会释放那些引用次数为0的值所占用的内存。
+
+    function test(){
+      var a={};//a的引用次数为0
+      var b=a;//a的引用次数加1，为1
+      var c=a;//a的引用次数加1，为2
+      var b={};//a的引用次数减1，为1
+    }
+
+    4、哪些操作会造成内存泄露
+    1）意外的全局变量引起的内存泄露
+
+    function leak(){
+      leak="xxx";//leak成为一个全局变量，不会被回收
+    }
+
+    2）闭包引起的内存泄露
+    function bindEvent(){
+      var obj=document.createElement("XXX");
+      obj.οnclick=function(){
+        //Even if it's a empty function
+      }
+    }
+    闭包可以维持函数内局部变量，使其得不到释放。 上例定义事件回调时，由于是函数内定义函数，并且内部函数--事件回调的引用外暴了，形成了闭包。
+    解决之道，将事件处理函数定义在外部，解除闭包,或者在定义事件处理函数的外部函数中，删除对dom的引用。
+
+    //将事件处理函数定义在外部
+    function onclickHandler(){
+      //do something
+    }
+    function bindEvent(){
+      var obj=document.createElement("XXX");
+      obj.οnclick=onclickHandler;
+    }
+
+    //在定义事件处理函数的外部函数中，删除对dom的引用
+    function bindEvent(){
+      var obj=document.createElement("XXX");
+      obj.οnclick=function(){
+        //Even if it's a empty function
+      }
+      obj=null;
+    }
+
+    3）没有清理的DOM元素引用
+    var elements={
+        button: document.getElementById("button"),
+        image: document.getElementById("image"),
+        text: document.getElementById("text")
+    };
+    function doStuff(){
+        image.src="http://some.url/image";
+        button.click():
+        console.log(text.innerHTML)
+    }
+    function removeButton(){
+        document.body.removeChild(document.getElementById('button'))
+    }
+
+    4）被遗忘的定时器或者回调
+    var someResouce=getData();
+    setInterval(function(){
+        var node=document.getElementById('Node');
+        if(node){
+            node.innerHTML=JSON.stringify(someResouce)
+        }
+    },1000)
+    这样的代码很常见, 如果 id 为 Node 的元素从 DOM 中移除, 该定时器仍会存在, 同时, 因为回调函数中包含对 someResource 的引用, 定时器外面的 someResource 也不会被释放。
+
+    5）子元素存在引起的内存泄露
+
+
+
+
+
+    黄色是指直接被 js变量所引用，在内存里，红色是指间接被 js变量所引用，如上图，refB 被 refA 间接引用，导致即使 refB 变量被清空，也是不会被回收的子元素 refB 由于 parentNode 的间接引用，只要它不被删除，它所有的父元素（图中红色部分）都不会被删除。
+
+
+
+    6）IE7/8引用计数使用循环引用产生的问题
+
+    function fn(){
+      var a={};
+      var b={};
+      a.pro=b;
+      b.pro=a;
+    }
+    fn();
+    fn()执行完毕后，两个对象都已经离开环境，在标记清除方式下是没有问题的，但是在引用计数策略下，因为a和b的引用次数不为0，所以不会被垃圾回收器回收内存，如果fn函数被大量调用，就会造成内存泄漏。在IE7与IE8上，内存直线上升。
+    IE中有一部分对象并不是原生js对象。例如，其内存泄漏DOM和BOM中的对象就是使用C++以COM对象的形式实现的，而COM对象的垃圾回收机制采用的就是引用计数策略。因此，即使IE的js引擎采用标记清除策略来实现，但js访问的COM对象依然是基于引用计数策略的。换句话说，只要在IE中涉及COM对象，就会存在循环引用的问题。
+
+    var element=document.getElementById("some_element");
+    var myObject=new Object();
+    myObject.e=element;
+    element.o=myObject;
+    上面的例子在一个DOM元素（element)与一个原生js对象（myObject)之间创建了循环引用。其中，变量myObject有一个名为e的属性指向element对象；而变量element也有一个属性名为o回指myObject。由于存在这个循环引用，即使例子中的DOM从页面中移除，它也永远不会被回收。
+
+    看上面的例子，有人会觉得太弱了，谁会做这样无聊的事情，但是其实我们经常会这样做
+
+    window.οnlοad=function outerFunction(){
+      var obj=document.getElementById("element"):
+      obj.οnclick=function innerFunction(){};
+    };
+    这段代码看起来没什么问题，但是obj引用了document.getElementById(“element”)，而document.getElementById(“element”)的onclick方法会引用外部环境中的变量，自然也包括obj，是不是很隐蔽啊。
+
+    最简单的解决方式就是自己手工解除循环引用，比如刚才的函数可以这样
+
+    myObject.element=null;
+    element.o=null;
+    window.οnlοad=function outerFunction(){
+      var obj=document.getElementById("element"):
+      obj.οnclick=function innerFunction(){};
+      obj=null;
+    };
+    将变量设置为null意味着切断变量与它此前引用的值之间的连接。当垃圾回收器下次运行时，就会删除这些值并回收它们占用的内存。 要注意的是，IE9+并不存在循环引用导致Dom内存泄漏问题，可能是微软做了优化，或者Dom的回收方式已经改变
+
+    5、如何分析内存的使用情况
+
+    Google Chrome浏览器提供了非常强大的JS调试工具，Memory 视图  profiles 视图让你可以对 JavaScript 代码运行时的内存进行快照，并且可以比较这些内存快照。它还让你可以记录一段时间内的内存分配情况。在每一个结果视图中都可以展示不同类型的列表，但是对我们最有用的是 summary 列表和 comparison 列表。  summary 视图提供了不同类型的分配对象以及它们的合计大小：shallow size （一个特定类型的所有对象的总和）和 retained size （shallow size 加上保留此对象的其它对象的大小）。distance 显示了对象到达 GC 根（校者注：最初引用的那块内存，具体内容可自行搜索该术语）的最短距离。 comparison 视图提供了同样的信息但是允许对比不同的快照。这对于找到泄漏很有帮助。
+
+
+
+    6、怎样避免内存泄露
+
+    1）减少不必要的全局变量，或者生命周期较长的对象，及时对无用的数据进行垃圾回收；
+
+    2）注意程序逻辑，避免“死循环”之类的 ；
+
+    3）避免创建过多的对象  原则：不用了的东西要及时归还。

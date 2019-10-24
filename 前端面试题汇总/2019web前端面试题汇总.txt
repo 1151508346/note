@@ -1,0 +1,896 @@
+﻿2019年最新经典web前端面试题
+6
+2018.09.25 18:57:33
+字数 1986
+阅读 58531
+         2018年最新经典web前端面试题汇总。如果你一些基本问题答对了，那么我可以肯定的是 你面试任何公司的前端技术轮，都是没问题的。不是我吹，是真的 基础很重要。今天这套面试题也很特别，都是一些问题，没为大家准备答案，这样做的目的就是希望培养大家独立自学的能力，不要总是依靠别人的答案，这些问题网上也是能查到答案的，随着看问题随着找答案能在一定程度上巩固所学知识。
+
+
+「 CSS篇 」
+
+1. CSS 盒子模型，绝对定位和相对定位
+	position:relative;
+	position:absolute
+2. 清除浮动，什么时候需要清除浮动，清除浮动都有哪些方法
+	clear:both
+
+	当在子元素设置float,父元素没有设置width和height ，而是由子元素支撑起来的时候，会导致父元素父元素高度塌陷， height:0
+
+	在父元素中添加多余元素设置clear:both
+	overflow:hidden;
+	ss
+	父元素::after{
+		content:"";
+		display:block;
+		clear:both;
+	}
+
+
+3. 如何保持浮层水平垂直居中
+	div{
+		position:absolute;
+		top:50%;
+		left:50%;
+		width:100px;
+		height:100px;
+		margin-left:-50px;
+		margin-top:-50px;
+	}
+4. position 和 display 的取值和各自的意思和用法
+	position:relative 相对定位
+			absolute 绝对定位
+	display  ：inline-block 行内块级元素
+			 block 块级元素
+			 inline 行内元素
+			 none  隐藏  （脱离文档流）
+			 flex  弹性盒子
+
+
+
+5. 样式的层级关系，选择器优先级，样式冲突，以及抽离样式模块怎么写，说出思路，有无实践经验
+	
+	样式的层级关系：一个是权重，另一个就是共用样式和私用样式了，比如说两个ul，它们的子元素除了背景色之外都一样，那可以直接用li {}来定义相同的公用样式，用 .ul_1 li {} ， .ul_2 li {} 来定义不相同的样式。可以根据元素之间的差别来选择用哪种方法。推荐用多层级的方式书写css选择器
+	选择器优先级：（!important>）id选择器>class选择器（属性选择器/伪类选择器）>标签选择器（伪元素选择器）同类选择符条件下层级越多的优先级越高。优先级就近原则，同权重情况下样式定义最近者为准。载入样式以最后载入的定位为准。
+
+	样式冲突：   如果同个元素有两个或以上冲突的CSS规则，浏览器有一些基本的规则来决定哪一个非常特殊而胜出。
+        选择器一样的情况下后面的会覆盖前面的属性。
+        使用嵌套选择器时：根据计算权重的大小 来决定显示哪个样式
+    抽离样式模块：
+    	因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面显示差异。当然，初始化样式会对SEO有一定的影响，但鱼和熊掌不可兼得，但力求影响最小的情况下初始化。
+        最简单的初始化方法： * {padding: 0; margin: 0;} （强烈不建议）
+
+
+        body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }
+        body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; }
+        h1, h2, h3, h4, h5, h6{ font-size:100%; }
+        address, cite, dfn, em, var { font-style:normal; }
+        code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
+        small{ font-size:12px; }
+        ul, ol { list-style:none; }
+        a { text-decoration:none; }
+        a:hover { text-decoration:underline; }
+        sup { vertical-align:text-top; }
+        sub{ vertical-align:text-bottom; }
+        legend { color:#000; }
+        fieldset, img { border:0; }
+        button, input, select, textarea { font-size:100%; }
+        table { border-collapse:collapse; border-spacing:0; }
+
+
+6. css3动画效果属性，canvas、svg的区别，CSS3中新增伪类举例
+
+7. px和em和rem的区别，CSS中link 和@import的区别是?
+	px像素（Pixel）。相对长度单位。像素px是相对于显示器屏幕分辨率而言的
+	em是相对长度单位。相对于当前对象内文本的字体尺寸。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸
+	rem是CSS3新增的一个相对单位（root em，根em），这个单位引起了广泛关注。这个单位与em有什么区别呢？区别在于使用rem为元素设定字体大小时，仍然是相对大小，但相对的只是HTML根元素。
+
+5. 了解过flex吗?
+	
+「 JavaScript 篇 」
+
+JavaScript 基础
+
+1. JavaScript 里有哪些数据类型，解释清楚 null 和 undefined，解释清楚原始数据类型和引用数据类型。比如讲一下 1 和 new Number(1)的区别
+	基本数据类型
+		Number
+		String
+		null 
+			表示变量指向一个空指针，该变量有值，值为null
+		undefined
+			表示该变量没有定义，不存在该变量
+		Boolean
+	引用数据类型	
+		Object 
+		Function
+
+	1 :typof 1 number
+	new Number(1) typeof (new Number(1)) object
+	1== nem number(1); true
+	1=== nem number(1) ; false
+	1== nem number(1) ; true
+	1=== nem number(1) ; true
+
+
+
+	
+2. 将一下 prototype 是什么东西，原型链的理解，什么时候用 prototype
+	
+	prototype
+    prototype是函数对象上面预设的对象属性
+    1. JS中所有的东西都是对象,每个对象都有prototype这个属性，这个属性是一个对象（object）
+    2. JS中所有的东西都由Object衍生而来, 即所有东西原型链的终点指向Object.prototype
+    3. JS中构造函数和实例(对象)之间有微妙的关系，构造函数通过定义prototype来约定其实例的规格, 再通过 new 来构造出实例, 他们的作用就是生产对象。而构造函数(方法)本身又是方法(Function)的实例, 因此也可以查到它的__proto__(原型链)
+
+
+       Object / function F(){}  这样子的就是构造函数，一个是JS原生API提供的，一个是自定义的
+       new Object() / new F()   这样子的就是实例
+       实例就"只能"查看__proto__来得知自己是基于什么prototype被制造出来的,而"不能"再重新定义实例的prototype妄想创造出实例的实例了。
+
+原型
+    是一个对象上面的原型，这个原型通常是它的构造器的prototype属性
+原型链
+    function foo(){};
+    foo.prototype.z = 3;
+    var obj = new foo();
+	    通过new构造对象(实例)的特点是，obj的原型（prototype）指向了构造器的prototype属性，也就是foo.prototype，而foo.prototype则指向了原始的Object.prototype，Object.prototype也有原型，为null。这就是一整个原型链。
+
+
+
+	什么时候用 prototype
+	    使用 prototype的好处是不会额外产生内存，所有实例化后的对象都会从原型上继承这个方法。也就是需要一个子类拥有父类的某些特性（同种特性可以覆盖），又可以添加自己的特性，而不会影响父类时候使用prototype。
+	    Prototype通常用来解决一个问题：对象的创建比较耗费资源。比如，对象创建的时候需要访问数据库、需要读取外部文件、需要使用网络，这些都是比较耗费时间和内存的。如果可以用clone来解决，就方便多了。当需要创建很多 拥有相同属性的对象时候需要clone。
+
+3. 函数里的this什么含义，什么情况下，怎么用。
+		含义:
+			this是Javascript语言的一个关键字。它代表函数运行时，自动生成的一个内部对象，只能在函数内部使用。随着函数使用场合的不同，this的值会发生变化。但是有一个总的原则，那
+			就是this指的是，调用函数的那个对象
+		1.纯粹的函数调用 this->window(global)
+		2.函数作为对象的方法进行调用 this->上级对象
+		3.构造方法调用 this-newObject
+
+4. apply和 call 什么含义，什么区别?什么时候用。(我有篇文章 重点分析过)
+	目的都是改变this指向
+	区别：传参列表不同
+	当需要改变函数的执行期上下文的时候采用
+	例如 使用class选择出一组dom元素，使用Array中的函数的时候可是通过apply和call
+	var items = document.getElementsByClassName("items")
+	Array.prototype.forEach.call(items,function(val,index){})
+
+
+5. 数组和对象有哪些原生方法，列举一下，分别是什么含义，比如连接两个数组用哪个方法，删除数组的指定项和重新组装数组(	重点)。
+	concat(arr,arr2)
+	push() 循环添加
+
+	splice(index,1) 
+
+	sort
+
+
+6. 怎样避免全局变量污染?ES5严格模式的作用，ES6箭头函数和ES5普通函数一样吗?
+	
+	怎样避免全局变量污染
+		尽量避免使用全局变量
+		模块模式 -- 创建一个函数，函数中有一些私有变量和一个特有对象，特有对象的内容：利用闭包能够访问到私有变量的函数
+		零全局变量 （立即执行函数）
+	es5严格模式作用
+		消除js语法的不合理和不严谨之处，减少一些怪异行为
+		消除代码运行的不安全性，促进代码的运行安全
+		提高编译器效率，增加运行速度
+		为未来新版本的js做好铺垫
+	
+	箭头函数和普通函数有区别
+
+		箭头函数
+			不绑定arguments
+			是匿名函数 不能作为构造函数 不能使用new
+			箭头函数不绑定this 它会捕获其所在上下文的this ，来作为自己的this
+			箭头函数不能通过call和apply来改变this指向
+
+JavaScript 的面向对象
+
+1. JS 模块包装格式都用过哪些，CommonJS、AMD、CMD。定义一个JS 模块代码，最精简的格式是怎样。
+	cmd
+		定义 工具模块
+			var tools = {
+			    test(){
+			        console.log("tool1-test()")
+			    },
+			    test2(){
+			        console.log("tools-test2()")
+			    }
+			}
+			define(function(require,exports,module){
+			   return module.exports = tools;
+			})
+		配置和使用
+			seajs.config({
+				alias:{
+					"tools":"./tools.js"
+				}
+			})
+			seajs.use("tools",function(tools){
+				tools.functionName();
+			})
+	amd
+	 	定义 工具模块
+	 		define(function(require,exports,module){
+	 			module.exports = tools
+	 		})
+	 	配置和使用
+	 		require.config({
+
+	 			paths:{
+	 				"tools":"./tools.js"
+	 			}
+	 		})
+	 		require(["tools"],function(tools){
+	 			console.log(tools)
+	 		})
+
+2. JS 怎么实现一个类。怎么实例化这个类。
+		function Demo(){}
+		new Demo();
+
+3. 理解闭包吗?请讲一讲闭包在实际开发中的作用;闭包建议频繁使用吗?
+	
+	将一个运行环境中资源本应该释放，但是暴露给了其他函数，以使得其不能被释放继续被访问的语言特性
+
+	灵活的使用闭包能够可以是实现替代全局变量所带来的全局污染
+
+	比建议频繁使用闭包 因为会导致内存泄露
+
+4. 说一下了解的js 设计模式，解释一下单例、工厂、观察者。
+
+5. ajax 跨域有哪些方法，jsonp 的原理是什么，如果页面编码和被请求的资源编码不一致如何处理?
+	jsonp
+	cros （跨域资源共享） （在后端配置可跨越）
+	服务器代理 通过服务器的文件能访问第三方资源上
+
+请问jsonp是不是ajax中实现跨域访问的技术
+
+　　jsonp不是AJAX中实现跨域访问的技术
+
+　　jsonp没有使用XMLHttpRequest对象
+
+　　jsonp只是一种跨域的协议
+
+　　jsonp只支持Get方式
+
+	解释jsonp的原理
+
+　　ajax请求受同源策略影响，不允许进行跨域请求，而script标签src属性中的链接却可以访问跨域的js脚本，利用这个特性，服务端不再返回JSON格式的数据，
+
+　　而是返回一段调用某个函数的js代码，在src中进行了调用，这样实现了跨域。
+
+「 开源工具 」
+
+1)是否了解开源的架构工具 bower、npm、yeoman、gulp、webpack，有无用过，有无写过，一个 npm 的包里的 package.json 具备的必要的字段都有哪些(名称、版本号，依赖)
+bower npm  cnpm gulp webpack
+	
+	{
+		name, //项目名称
+		version, //版本
+		author,	//作者
+		main,	//入口js
+		script ,//npm 常用命令设置
+		dependencies, //依赖模块
+		license :"MIT" //权限 open
+	}
+
+	
+
+2)github常用不常用，关注过哪些项目
+
+3)会不会用 ps 扣图，png、jpg、gif 这些图片格式解释一下，分别什么时候用。如何优化图像、图像格式的区别
+
+4)说一下你常用的命令行工具
+git
+5)会不会用git，说上来几个命令，说一下git和svn的区别，有没有用git解决过冲突
+	git add a.txt 添加a.txt 到暂存区
+	git status 查看暂存区中内容
+	git commit -m "第一次提交" 将暂存区中的文件提交到本地仓库
+	git pull origin master  将远程master主支中的文件 拉到本地
+	git push origin master  将本地仓库的文件推到远程仓库中
+
+
+「 计算机网络基础 」
+
+1)说一下HTTP 协议头字段说上来几个，是否尽可能详细的掌握HTTP协议。一次完整的HTTP事务是怎样的一个过程?
+	requestURL 请求地址
+	requestMethods 请求方式
+	user-agent 识别发出请求的客户端
+	refer 指示所指向web页面的URL
+	cookie 把之前发送给浏览器的cookie返回给服务器
+
+	域名解析->建立tcp3次握手->向服务器发送http请求->
+	服务器响应http请求->浏览器解析http代码->并请求http代码中资源(js，img，css) ->浏览器对页面进行渲染呈现给用户
+
+2)cookies 是干嘛的，服务器和浏览器之间的 cookies 是怎么传的，httponly 的 cookies 和可读写的 cookie 有什么区别，有无长度限制
+
+	由于HTTP协议是无状态的，而服务器端的业务必须是要有状态的。Cookie诞生的最初目的是为了存储web中的状态信息，以方便服务器端使用。比如判断用户是否是第一次访问网站。目前最新的规范是RFC 6265，它是一个由浏览器服务器共同协作实现的规范。 
+	Cookie的处理分为：
+
+	服务器像客户端发送cookie
+	浏览器将cookie保存
+	之后每次http请求浏览器都会将cookie发送给服务器端
+
+	httponly	
+		告知浏览器不允许通过脚本document.cookie去更改这个值，同样这个值在document.cookie中也不可见。但在http请求张仍然会携带这个cookie。注意这个值虽然在脚本中不可获取，但仍然在浏览器安装目录中以文件形式存在。这项设置通常在服务器端设置。
+
+		平均每个域名 cookie 限制为 20 个 cookie数据大小不能超过4k
+请描述一下cookies，sessionStorage和localStorage的区别
+
+	相同点：都存储在客户端
+	不同点：
+
+	1. 存储大小
+		cookie数据大小不能超过4k。
+		sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。
+	2. 有效时间
+		localStorage    存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；
+		sessionStorage  数据在当前浏览器窗口关闭后自动删除。
+		cookie          设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭
+	3. 数据与服务器之间的交互方式
+		cookie的数据会自动的传递到服务器，服务器端也可以写cookie到客户端
+		sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。
+
+3)从敲入 URL 到渲染完成的整个过程，包括 DOM 构建的过程，说的约详细越好。
+
+4)是否了解Web注入攻击，说下原理，最常见的两种攻击(XSS 和 CSRF)了解到什么程度。
+XSS（Cross Site Script，跨站脚本攻击）是向网页中注入恶意脚本在用户浏览网页时在用户浏览器中执行恶意脚本的攻击方式。跨站脚本攻击分有两种形式：反射型攻击（诱使用户点击一个嵌入恶意脚本的链接以达到攻击的目标，目前有很多攻击者利用论坛、微博发布含有恶意脚本的URL就属于这种方式）和持久型攻击（将恶意脚本提交到被攻击网站的数据库中，用户浏览网页时，恶意脚本从数据库中被加载到页面执行，QQ邮箱的早期版本就曾经被利用作为持久型跨站脚本攻击的平台）。XSS虽然不是什么新鲜玩意，但是攻击的手法却不断翻新，防范XSS主要有两方面：消毒（对危险字符进行转义）和HttpOnly（防范XSS攻击者窃取Cookie数据）。
+
+SQL注入攻击是注入攻击最常见的形式（此外还有OS注入攻击（Struts 2的高危漏洞就是通过OGNL实施OS注入攻击导致的）），当服务器使用请求参数构造SQL语句时，恶意的SQL被嵌入到SQL中交给数据库执行。SQL注入攻击需要攻击者对数据库结构有所了解才能进行，攻击者想要获得表结构有多种方式：（1）如果使用开源系统搭建网站，数据库结构也是公开的（目前有很多现成的系统可以直接搭建论坛，电商网站，虽然方便快捷但是风险是必须要认真评估的）；（2）错误回显（如果将服务器的错误信息直接显示在页面上，攻击者可以通过非法参数引发页面错误从而通过错误信息了解数据库结构，Web应用应当设置友好的错误页，一方面符合最小惊讶原则，一方面屏蔽掉可能给系统带来危险的错误回显信息）；（3）盲注。防范SQL注入攻击也可以采用消毒的方式，通过正则表达式对请求参数进行验证，此外，参数绑定也是很好的手段，这样恶意的SQL会被当做SQL的参数而不是命令被执行，JDBC中的PreparedStatement就是支持参数绑定的语句对象，从性能和安全性上都明显优于Statement。
+CSRF攻击（Cross Site Request Forgery，跨站请求伪造）是攻击者通过跨站请求，以合法的用户身份进行非法操作（如转账或发帖等）。CSRF的原理是利用浏览器的Cookie或服务器的Session，盗取用户身份，其原理如下图所示。防范CSRF的主要手段是识别请求者的身份，主要有以下几种方式：（1）在表单中添加令牌（token）；（2）验证码；（3）检查请求头中的Referer（前面提到防图片盗链接也是用的这种方式）。令牌和验证都具有一次消费性的特征，因此在原理上一致的，但是验证码是一种糟糕的用户体验，不是必要的情况下不要轻易使用验证码，目前很多网站的做法是如果在短时间内多次提交一个表单未获得成功后才要求提供验证码，这样会获得较好的用户体验。
+
+5)是否了解公钥加密和私钥加密。如何确保表单提交里的密码字段不被泄露。验证码是干嘛的，是为了解决什么安全问题。
+
+	验证码：
+		就是程序开发者为了防止有人恶意使用技术手段破解我们的数据安全，更简单来说就是防止盗号防止黑客。专业一点来说，验证码是为了区分人类和机器的一种图灵测试，
+
+
+6)编码常识：文件编码、URL 编码、Unicode编码 什么含义。一个gbk编码的页面如何正确引
+	文件编码：
+		ASCII
+			American Standard Code for Information Interchange，美国信息交换标准代码
+			ASCII编码方案一共规定了128个字符对应的二进制表示，只占用了一个字节的后面7bit，最高位为0
+		GB2312
+			GB2312编码是第一个汉字编码国家标准，
+			由中国国家标准总局1980年发布，
+			1981年5月1日开始使用。
+			GB2312编码共收录汉字6763个，
+			其中一级汉字3755个，二级汉字3008个。
+			同时，GB2312编码收录了包括拉丁字母、希腊字母、日文平假名及片假名字母、俄语西里尔字母在内的682个全角字符。
+
+
+	url编码是一种浏览器用来打包表单输入的格式。
+		浏览器从表单中获取所有的name和其中的值 ，
+		将它们以name/value参数编码（移去那些不能传送的字符，将数据排行等等）
+		作为URL的一部分或者分离地发给服务器。
+		不管哪种情况，在服务器端的表单输入格式样子象这样：
+	
+	Unicode是一个编码方案， 全球统一的编码字符集,Unicode 是为了解决传统的字符编码方案的局限而产生的，
+	它为每种语言中的每个字符设定了统一并且唯一的二进制编码，
+	以满足跨语言、跨平台进行文本转换、处理的要求。
+	Unicode 编码共有三种具体实现，分别为utf-8,utf-16,utf-32，
+	其中utf-8占用一到四个字节，utf-16占用二或四个字节，
+	utf-32占用四个字节。目前Unicode 码在全球范围的信息交换领域均有广泛的应用。 [1] 
+
+「 前端框架 」
+
+1) 对 MVC、MVVM的理解
+		mvc
+			MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。
+
+		mvvm
+			MVVM是Model-View-ViewModel-Model的简写。它本质上就是MVC 的改进版。MVVM 就是将其中的View 的状态和行为抽象化，让我们将视图 UI 和业务逻辑分开。当然这些事 ViewModel 已经帮我们做了，它可以取出 Model 的数据同时帮忙处理 View 中由于需要展示内容而涉及的业务逻辑
+
+		优点:MVC
+
+		易懂: 简单易懂，我想用这四个字来形容MVC在合适不过了。
+		层次分明: 共三个部分，各自完成各自的内容，在有Controller将大家协调在一起。
+		弊端:MVC
+
+		量级重 : ViewController处理过多的业务逻辑如协调模型和视图之间的所有交互，导致量级重，维护成本很高。
+		过轻的Model对象:在实践中往往大家都把Model的量级设计的非常轻，总容易当做数据模型来对待。
+		至于很开发者所说的无法添加的网络逻辑，我个人认为完全可以设计添加到Model中。但要注意根据需求来选择“同步或异步”。
+
+		优点: MVVM
+
+		低耦合: View可以独立于Model变化和修改，一个ViewModel可以绑定到不同的View 上。
+		可重用性: 可以把一些视图逻辑放在一个ViewModel里面，让很多View重用这段视图逻辑。
+		弊端:MVVM
+
+		数据绑定后使得Bug很难被调试。
+		数据绑定和数据转化需要花费更多的内存成本。
+
+
+2) vue、angularjs等 相对于 jQuery在开发上有什么优点?
+	jQuery 操作DOM的性能比较好，但是效率比较低
+	、开发效率和代码规范比较好
+	总结：jQuery从后台返回的数据要渲染到前端上需要通过手动更新DOM，
+	但是手动改DOM一般比MVC渲染的性能好。但开发效率和代码规范不如NG/ReactJS。
+
+3)前后分离的思想了解吗?
+
+4)你上一个项目都用到了那些方法优化js的性能?
+	避免全局查找
+	优化脚本性能最重要的就是注意全局查找。全局变量和函数肯定要比局部的开销更大，因为涉及作用域链上的查找
+
+	.优化循环
+
+		1 for(var i = 0; i <=imgs.length; i++) {
+		2    //执行代码
+		3 }
+			上面代码每次执行循环都会重新计算imgs的长度，一旦循环次数很多，那么积少成多就会影响到代码性能，我们只需在for循环执行之前把imgs的长度保存在一个变量中即可，这样就不用每次都是计算imgs的长度，改进代码如下：
+
+		1  var length = imgs.length;    //把imgs的长度保存在一个变量中
+		2  for(var i = 0; i <=length; i++) {
+		3     //执行代码
+		4  } 　
+	.尽量使用原生方法
+
+     只要有可能，使用原生方法而不是自己用javascript重写一个。原生方法是用诸如c/c++之类的编译型语言写出来的，所以要比JavaScript的快很多很多。
+
+   3.使用switch替代if-else　 
+
+	.最小化语句数  
+
+    1.多个变量申明，javaScript代码中的语句数量也影响所执行的操作的速度，完成多个操作的单个语句要比完成单个操作的多个语句快。
+	复制代码
+	1  //四个语句申明变量，浪费！
+	2  var name = "Bill";
+	3  var  age = 10;
+	4  var  sex = "man";
+	5 
+	6  //一个语句申明变量，干的漂亮！
+	7  var name = "Bill",
+	8      age = 10,
+	9      sex = "man";
+
+	优化DOM交互
+
+   .使用文档碎片减少DOM交互次数，DOM交互越多，性能越慢。
+   使用事件委托，把事件绑定在祖先节点，由于有事件冒泡，当事件触发时根据event对象的target属性可以知道具体事件是在那个子元素发生的。从而执行不同的行为。这样就不必每个子节点都绑定事件。
+
+
+
+5)angular的生命周期?
+
+	constructor是ES6中class中新增的属性，当class类实例化的时候调用constructor，来初始化类
+		1ngOnChanges - 当数据绑定输入属性的值发生变化时调用
+		2、ngOnInit - 在第一次 ngOnChanges 后调用
+		3、ngDoCheck - 自定义的方法，用于检测和处理值的改变
+		4、ngAfterContentInit - 在组件内容初始化之后调用
+		5、ngAfterContentChecked - 组件每次检查内容时调用
+		6、ngAfterViewInit - 组件相应的视图初始化之后调用
+		7、ngAfterViewChecked - 组件每次检查视图时调用
+		8、ngOnDestroy - 指令销毁前调用
+6)说一下你对vue和vuex的使用方法，vue的组件复用机制
+	Vue的使用
+		new Vue({
+			el:"#app",
+			data:function (){
+				return {
+
+				}
+			},
+			mathods:{
+
+			},
+			computed:{
+
+			},
+			created(){
+
+			}
+
+		})
+		vuex的使用
+	import Vue from "vue"
+	import Vuex from "vuex"
+	vue.use(Vuex)
+	new Vuex.store({
+		state:{
+
+		},
+		mutation:{
+
+		},
+		getter:{
+
+		},
+		action:{
+
+		},
+		module:{
+			
+		}
+	})
+
+
+		组件是可复用的Vue实例
+
+
+		1.我们可以在一个通过new Vue创建的 Vue 根实例中，把这个组件作为自定义元素来使用：
+		注意当点击按钮时，每个组件都会各自独立维护它的属性。因为你每用一次组件，就会有一个它的新实例被创建。
+
+/**
+	渐进式：
+	意味着你可以将vue作为你应用的一部分嵌入其中，带来丰富的交互体验，
+	或者如果你希望将更多的业务逻辑使用vue实现，那么vue的核心库以及其生态系统
+	core+vuex+vue-router 也可以满足你的需求
+
+*/
+
+
+考察学习能力和方法
+
+1)你每天必须登录的网站(前端技术相关)是什么?
+
+2)前端技术方面看过哪些书，有无笔记，都有哪些收获。
+
+3)收藏了哪些代码片段?有想过开源自己的代码嘛?
+
+4)怎么理解前端技术的大趋势?自己再做哪方面的知识储备?
+
+5)是否了解或精通其他(后端)的编程语言?
+
+6)做项目有没有遇到哪些印象深刻的技术攻关，具体遇到什么问题，怎么找答案的，最后怎么解的。
+
+7)对以后自己的前端职业路线，怎么规划？
+
+开放性问题(重要)
+
+这些问题往往决定你是否最终被录用或者等到终轮面试，技术点回答错了不要紧，人脑不是机器，是可以恶补的。
+
+但如果你没有思想和独到的思路，基础挖的再深，可能也打动不了面试官，因为比你基础好的一大堆，但每个人的个性思想却是不同的。
+
+1. 如果需要你加班，你会加吗，抵触吗?
+
+其实你肯定抵触，但你肯定要回答如果项目需要肯定会加。
+
+2. 一个小项目让你自己负责搭建底层一些架构，你能胜任吗?
+
+回答例如：我肯定愿意尝试，并做到最优的选择方案出来。
+
+3. 如果项目拖太久，你情绪低落或者厌烦了怎么调节?
+
+回答就是， 你结合自身挑着好听的说就行，就像聊天。
+
+4. 你建议自己造轮子，还是利用开源的轮子?
+
+回答：根据实际情况而定，如果开源完全满足 可以自己二次开发就好，大大缩短开发周期，
+
+如果实在没有契合度很高的，可以花费几个工作日尝试造轮。
+
+结语
+
+感谢您的观看，如有不足之处，欢迎批评指正。
+
+获取资料??????
+
+本次给大家推荐一个免费的学习群，里面概括移动应用网站开发，css，html，webpack，vue node angular以及面试资源等。
+
+对web开发技术感兴趣的同学，欢迎加入Q群：??????619586920，不管你是小白还是大牛我都欢迎，还有大牛整理的一套高效率学习路线和教程与您免费分享，同时每天更新视频资料。
+
+最后，祝大家早日学有所成，拿到满意offer，快速升职加薪，走上人生巅峰。
+
+
+前端面试题整理—ajax篇
+1、什么是Ajax和JSON，它们的优缺点
+
+　　Ajax是全称是asynchronous JavaScript andXML，即异步JavaScript和xml，用于在Web页面中实现异步数据交互，实现页面局部刷新
+
+　　优点：可以实现异步通信效果，页面局部刷新，带来更好的用户体验
+
+　　JSON是一种轻量级的数据交换格式，看着像对象，本质是字符串
+
+　　优点：轻量级、易于人的阅读和编写，便于js解析，支持复合数据类型
+
+ 
+
+2、ajax的交互流程有哪几步？
+
+　　1）创建ajax对象
+
+　　　　xhr = new XMLHttpRequest
+
+　　2）规定请求地址
+
+　　　　xhr.open(method,url,async)
+
+　　3）等待服务器相应
+
+　　　　xhr.onload
+
+　　4）向服务器发送请求
+
+　　　　xhr.send()
+
+ 
+
+3、AJAX应用和传统Web应用有什么不同
+
+　　在传统的Js中，如果想发送客户端信息到服务器，需要建立一个HTML 表单然后GET或者POST数据到服务器端
+
+　　用户需要点击提交按钮来发送数据信息，然后等待服务器响应请求，页面重新加载
+
+　　使用AJAX技术，就可以使Javascript通过XMLHttpRequest对象直接与服务器进行交互
+
+ 
+
+4、XMLHttpRequest对象在IE和Firefox中创建方式有没有不同？
+
+　　IE中通过new ActiveXObject()得到，Firefox中通过newXMLHttpRequest()得到
+
+　　使用jquery封装好的ajax，会避免这些问题
+
+ 
+
+5、ajax如何解决浏览器缓存问题
+
+　　1）在ajax发送请求前加上 anyAjaxObj.setRequestHeader("If-Modified-Since","0")
+
+　　2）在ajax发送请求前加上 anyAjaxObj.setRequestHeader("Cache-Control","no-cache")
+
+　　3）在URL后面加上一个随机数： "fresh=" + Math.random();
+
+　　4）在URL后面加上时间戳："nowtime=" + new Date().getTime()
+
+　　5）在jq ajax下，使用 $.ajaxSetup({cache:false}) 这样就不会保存缓存记录
+
+ 
+
+6、简述ajax的优缺点
+
+　　优点：
+
+　　1）无刷新更新数据（在不刷新整个页面的情况下维持与服务器通信）
+
+　　2）异步与服务器通信（使用异步的方式与服务器通信，不打断用户的操作）
+
+　　3）前端和后端负载均衡（将一些后端的工作交给前端，减少服务器与宽度的负担）
+
+　　4）界面和应用相分离（ajax将界面和应用分离也就是数据与呈现相分离）
+
+　　缺点：
+
+　　1）ajax不支持浏览器back按钮
+
+　　2）安全问题 Ajax暴露了与服务器交互的细节
+
+　　3）对搜索引擎的支持比较弱
+
+　　4）破坏了Back与History后退按钮的正常行为等浏览器机制
+
+ 
+
+7、阐述一下异步加载JS
+
+　　1）异步加载的方案： 动态插入 script 标签
+
+　　2）通过 ajax 去获取 js 代码，然后通过 eval 执行
+
+　　3）script 标签上添加 defer 或者 async 属性
+
+　　4）创建并插入 iframe，让它异步执行 js
+
+ 
+
+8、json字符串与对象如何相互转换
+
+　　把JSON格式转成对象：JSON.parse()
+
+　　把对象转成标准json：JSON.stringify()
+
+　　使用eval能够把字符串尽量转成js运行的代码 eval('(' + jsonstr + ')') 
+
+　　eval是不安全的（可能会注入不必要的东西），通过new Function('','return'+json)();可以解决该问题
+
+ 
+
+9、get与post的区别，什么时候使用post？
+
+　　get和post在HTTP中都代表着请求数据，其中get请求相对来说更简单、快速，效率高些
+
+　　get相对post安全性低
+
+　　get有缓存，post没有
+
+　　get体积小，post可以无限大
+
+　　get的url参数可见，post不可见
+
+　　get只接受ASCII字符的参数数据类型，post没有限制
+
+　　get请求参数会保留历史记录，post中参数不会保留
+
+　　get会被浏览器主动catch，post不会，需要手动设置
+
+　　get在浏览器回退时无害，post会再次提交请求
+
+ 
+
+　　post一般用于修改服务器上的资源，对所发送的信息没有限制。比如
+
+　　1. 无法使用缓存文件（更新服务器上的文件或数据库）
+　　2. 向服务器发送大量数据（POST 没有数据量限制）
+　　3. 发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠
+
+ 
+
+10、介绍一下XMLHttpRequest对象，他有哪些常用方法和属性
+
+　　XMLHttpRequest是ajax的核心，通过XMLHttpRequest对象，Web开发人员可以在页面加载以后进行页面的局部更新
+
+　　常用的方法：
+
+　　open(get/post,url,是否异步)创建http请求
+
+　　send()发送请求给服务器
+
+　　setRequestHeader()设置头信息（使用post才会用到，get并不需要调用该方法）
+
+　　常用的属性：
+
+　　onreadystatechange 用于监听ajax的工作状态（readyState变化时会调用此方法）
+
+　　readyState 用来存放XMLHttpRequest的状态
+
+　　status 服务器返回的状态码
+
+　　responseText 服务器返回的文本内容
+
+ 
+
+11、说下readyState属性是干嘛的，都有哪几个状态
+
+　　readyState属性用来存放XMLHttpRequest的状态，监听从0-4发生不同的变化
+
+　　0：请求未初始化（此时还没有调用open）
+
+　　1：服务器连接已建立，已经发送请求开始监听
+
+　　2：请求已接收，已经收到服务器返回的内容
+
+　　3：请求处理中，解析服务器响应内容
+
+　　4：请求已完成，且响应就绪
+
+ 
+
+12、jquery ajax怎么实现,你认为他有什么不足之处
+
+　　
+
+复制代码
+$.ajax({
+     url:发送请求的地址,
+     data:数据的拼接,//发送到服务器的数据
+     type:'get',//请求方式，默认get请求
+     dataType:'json',//服务器返回的数据类型
+     async:true,//是否异步，默认true
+     cache:false,//设置为 false 将不会从浏览器缓存中加载请求信息
+     success:function(){},//请求成功后的回调函数
+     error: function(){}//请求失败时调用此函数
+})
+复制代码
+　　不足之处：
+
+　　（1）针对MVC的编程,不符合现在前端MVVM的浪潮
+
+　　（2）基于原生的XHR开发，XHR本身的架构不清晰，已经有了fetch的替代方案
+
+ 
+
+13、说一下同步和异步的区别
+
+　　同步会阻塞，异步不会阻塞
+
+　　同步：程序运行从上而下，浏览器必须把这个任务执行完毕，才能继续执行下一个任务
+
+　　异步：程序运行从上而下，浏览器任务没有执行完，但是可以继续执行下一行代码
+
+ 
+
+14、解释一下 JavaScript的同源策略
+
+　　同源策略是客户端脚本的安全度量标准，为了防止某个文档或脚本从多个不同源装载
+
+　　同源策略是一种安全协议，指一段脚本只能读取来自同一来源的窗口和文档的属性
+
+　　所谓同源就是同域名、同协议、同端口，只有同源的地址才能相互通过ajax方式请求
+
+ 
+
+15、如何解决跨域问题？
+
+　　跨域的概念：协议、域名、端口都相同才同域，否则都是跨域
+
+　　解决跨域问题：
+
+　　1）使用JSONP（json+padding）把数据内填充起来
+
+　　2）CORS方式（跨域资源共享），在后端上配置可跨域
+
+　　3）服务器代理，通过服务器的文件能访问第三方资源
+
+ 
+
+16、解释jsonp的原理
+
+　　ajax请求受同源策略影响，不允许进行跨域请求，而script标签src属性中的链接却可以访问跨域的js脚本，利用这个特性，服务端不再返回JSON格式的数据，
+
+　　而是返回一段调用某个函数的js代码，在src中进行了调用，这样实现了跨域。
+
+ 
+
+17、请问jsonp是不是ajax中实现跨域访问的技术
+
+　　jsonp不是AJAX中实现跨域访问的技术
+
+　　jsonp没有使用XMLHttpRequest对象
+
+　　jsonp只是一种跨域的协议
+
+　　jsonp只支持Get方式
+
+ 
+
+18、页面编码和被请求的资源编码如果不一致如何处理？
+
+　　对于ajax请求传递的参数，如果是get请求，参数传递中文，在有些浏览器会乱码
+
+　　不同的浏览器对参数编码的处理方式不同，所以对于get请求的参数需要使用 encodeURIComponent函数对参数进行编码处理
+
+　　于post请求不需要进行编码
+
+ 
+
+19、AJAX请求总共有多少种CALLBACK
+
+　　总共有八种Callback
+
+　　onSuccess、onFailure、onUninitialized、onLoading
+
+　　onLoaded、onInteractive、onComplete、onException
+
+ 
+
+20、拿到数据怎么区分是ajax还是jsonp
+
+　　ajax: {}
+
+　　jsonp:fn({})
+
+　　ajax的数据jsonp不能用，jsonp的数据ajax是可以用的
+
+　　jsonp本质是通过URL的方式进行请求的，所以它是get方式请求，没有post
+
+
+
+*/
+
+
+主流浏览器及其内核
+名称			内核
+ IE    		  trident
+opera 	 	  最初是自己的Presto内核，后来是Webkit，现在是Blink内核；
+Safari		  以前 webkit 现在采用苹果默认的内核  
+Firefox       Gecko内核，俗称Firefox内核；
+Chrome		  以前 webkit   13年之后采用 blink 
+
+
+
+
+
+
+
+
+/***
+ * 
+ * mongoose 聚合管道
+ * mysql 外键 三表关联
+ * 
+ */
+ 
