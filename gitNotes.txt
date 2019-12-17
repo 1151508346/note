@@ -64,6 +64,11 @@ git push origin master 从本地推到远程
 
 git checkout . 恢复本次仓库目录中删除的文件 
 
+git credential-manager uninstall 清除账户和密码
+
+配置免用户名和密码
+config :
+	https://username:mima@222.212.87.87:10943/db/dbwebui.git
 
 
 
