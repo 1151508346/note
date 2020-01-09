@@ -72,7 +72,33 @@ config :
 
 
 
+ git config http.sslverify false
 
+-------------------拉取远程部分目录的代码---------------------
+ mkdir pro1
+$ cd pro1
+$ git init
+  Initialized empty Git repository in E:/pro1/.git/
+$ git remote add -f origin https://github.com/XXXXX/test.git    #拉取remote的all objects信息
+
+Updating origin
+remote: Counting objects: 522, done.
+remote: Compressing objects: 100% (383/383), done.
+remote: Total 522 (delta 124), reused 508 (delta 110), pack-reused 0
+Receiving objects: 100% (522/522), 566.56 KiB | 261.00 KiB/s, done.
+Resolving deltas: 100% (124/124), done.
+From https://github.com/XXXXX/test
+ * [new branch]      master     -> origin/master
+
+$ git config core.sparsecheckout true   #开启sparse clone
+$ echo "build" >> .git/info/sparse-checkout   #设置需要pull的目录，*表示所有，!表示匹配相反的
+
+$ less .git/info/sparse-checkout
+  build
+$  git pull origin master  #拉取
+$ ls
+ build
+----------------------------end---------------------------
 
 
 
